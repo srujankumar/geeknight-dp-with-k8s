@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Create terraform admin project
-TF_ADMIN_PROJECT = "geeknight-hyd-terraform-admin"
+TF_ADMIN_PROJECT="geeknight-h-terraform-admin"
 
 gcloud projects create ${TF_ADMIN_PROJECT} \
   --set-as-default
 
 gcloud beta billing projects link ${TF_ADMIN_PROJECT} \
-  --billing-account $(gcloud beta billing accounts list)
+  --billing-account $(gcloud beta billing accounts list | awk 'FNR == 2 {print $1}')
 
 # Create terraform service account
 TF_CREDS=~/.config/gcloud/geeknight-hyd-terraform-admin.json
