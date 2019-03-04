@@ -32,3 +32,15 @@ gcloud services enable cloudresourcemanager.googleapis.com
 gcloud services enable cloudbilling.googleapis.com
 gcloud services enable iam.googleapis.com
 gcloud services enable compute.googleapis.com
+
+# Create GCS for terraform remote state and enable versioning
+gsutil mb -p ${TF_ADMIN_PROJECT} gs://${TF_ADMIN_PROJECT}
+gsutil versioning set on gs://${TF_ADMIN_PROJECT}
+
+# Create application project
+APP_PROJECT="geeknight-hyd"
+
+gcloud projects create ${APP_PROJECT} \
+
+gcloud beta billing projects link ${APP_PROJECT} \
+  --billing-account $(gcloud beta billing accounts list | awk 'FNR == 2 {print $1}')
