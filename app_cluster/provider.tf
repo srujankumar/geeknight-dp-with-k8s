@@ -4,3 +4,5 @@ provider "google" {
   credentials = "${file("~/.config/gcloud/geeknight-hyd-demo.json")}"
   project     = "${var.project_id}"
 }
+
+provider "null" {}

@@ -19,3 +19,14 @@ resource "google_container_cluster" "cluster" {
     tags = ["${var.project_id}", "${terraform.workspace}"]
   }
 }
+
+resource "null_resource" "kubeconfig" {
+  provisioner "local-exec" {
+    command = "export KUBECONFIG=${terraform.workspace}_kubeconfig && gcloud container clusters get-credentials ${terraform.workspace} --zone ${var.zone}"
+  }
+
+  provisioner "local-exec" {
+    command = "rm -f ${terraform.workspace}_kubeconfig"
+    when    = "destroy"
+  }
+}
