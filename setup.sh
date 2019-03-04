@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create project
-PROJECT="geeknight-hyd"
+PROJECT="geeknight-hyd-demo"
 
 gcloud projects create ${PROJECT} \
   --set-as-default
@@ -10,7 +10,7 @@ gcloud beta billing projects link ${PROJECT} \
   --billing-account $(gcloud beta billing accounts list | awk 'FNR == 2 {print $1}')
 
 # Create terraform service account
-TF_CREDS=~/.config/gcloud/geeknight-hyd-terraform-admin.json
+TF_CREDS=~/.config/gcloud/${PROJECT}.json
 
 gcloud iam service-accounts create terraform \
   --display-name "Terraform admin account"
@@ -32,6 +32,7 @@ gcloud services enable cloudresourcemanager.googleapis.com
 gcloud services enable cloudbilling.googleapis.com
 gcloud services enable iam.googleapis.com
 gcloud services enable compute.googleapis.com
+gcloud services enable container.googleapis.com
 
 # Create GCS for terraform remote state and enable versioning
 gsutil mb -p ${PROJECT} gs://${PROJECT}

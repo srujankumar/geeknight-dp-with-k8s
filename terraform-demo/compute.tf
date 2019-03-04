@@ -1,5 +1,5 @@
-resource "google_compute_instance" "default" {
-  project = "${google_project_services.project.project}"
+resource "google_compute_instance" "demo" {
+  project = "${var.project_id}"
   zone = "${var.zone}"
   name = "tf-compute-1"
   machine_type = "f1-micro"
@@ -16,5 +16,5 @@ resource "google_compute_instance" "default" {
 }
 
 output "instance_id" {
-  value = "${google_compute_instance.default.self_link}"
+  value = "${google_compute_instance.demo.self_link}"
 }
