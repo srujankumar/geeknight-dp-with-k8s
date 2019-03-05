@@ -1,0 +1,27 @@
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  name: custom-ingress
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+#spec:
+#  rules:
+#  - http:
+#      paths:
+#      - path: /web/*
+#        backend:
+#          serviceName: web
+#          servicePort: 8080
+#      - path: /app1/*
+#        backend:
+#          serviceName: app1
+#          servicePort: 8080
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: custom-ingress
+spec:
+  backend:
+    serviceName: app1
+    servicePort: 8080

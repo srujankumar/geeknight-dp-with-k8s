@@ -2,4 +2,5 @@
 .terraform/
 node-app/node_modules/
 terraform.tfvars
+terraform.tfstate.d/
 *kubeconfig
