@@ -7,3 +7,6 @@ variable "region" {
 variable "zone" {
   default = "asia-south1-a"
 }
+variable "image" {
+  default = "ubuntu-1604-xenial-v20170328"
+}

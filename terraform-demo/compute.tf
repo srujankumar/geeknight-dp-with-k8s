@@ -5,7 +5,7 @@ resource "google_compute_instance" "demo" {
   machine_type = "f1-micro"
   boot_disk {
     initialize_params {
-      image = "ubuntu-1604-xenial-v20170328"
+      image = "${var.image}"
     }
   }
   network_interface {
