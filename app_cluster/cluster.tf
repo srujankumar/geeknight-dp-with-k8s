@@ -29,4 +29,5 @@ resource "null_resource" "kubeconfig" {
     command = "rm -f ${terraform.workspace}_kubeconfig"
     when    = "destroy"
   }
+  depends_on = ["google_container_cluster.cluster"]
 }
