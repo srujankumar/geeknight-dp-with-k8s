@@ -1,5 +1,5 @@
-resource "kubernetes_secret" "test-password" {
-  provider = "kubernetes.test_kubernetes"
+resource "kubernetes_secret" "password" {
+  provider = "kubernetes.${terraform.workspace}_kubernetes"
   metadata {
     namespace = "${local.app_namespace}"
     name      = "password"
@@ -8,6 +8,7 @@ resource "kubernetes_secret" "test-password" {
   data {
     value = "${random_string.random-password-generator.result}"
   }
+  depends_on = ["kubernetes_namespace.namespace"]
 }
 
 resource "random_string" "random-password-generator" {

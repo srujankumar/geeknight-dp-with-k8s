@@ -1,5 +1,5 @@
-resource "kubernetes_config_map" "test-details" {
-  provider = "kubernetes.test_kubernetes"
+resource "kubernetes_config_map" "details" {
+  provider = "kubernetes.${terraform.workspace}_kubernetes"
   metadata {
     name      = "details"
     namespace = "${local.app_namespace}"
@@ -7,7 +7,9 @@ resource "kubernetes_config_map" "test-details" {
 
   data {
     namespace       = "${local.app_namespace}"
-    environment     = "test"
+    environment     = "${terraform.workspace}"
     password        = "${random_string.random-password-generator.result}"
   }
+
+  depends_on = ["kubernetes_namespace.namespace"]
 }

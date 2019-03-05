@@ -1,6 +1,6 @@
 provider "kubernetes" {
-  alias = "test_kubernetes"
+  alias = "${terraform.workspace}_kubernetes"
   version = "~> 1.2"
-  config_path = "${local.test_kubeconfig_path}"
+  config_path = "${local.kubeconfig_path}"
 }
 
