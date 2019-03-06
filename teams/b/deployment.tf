@@ -41,4 +41,6 @@ resource "kubernetes_deployment" "sample-app" {
       }
     }
   }
+
+  depends_on = ["kubernetes_namespace.namespace"]
 }

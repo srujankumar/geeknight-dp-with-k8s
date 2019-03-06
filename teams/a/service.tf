@@ -20,6 +20,8 @@ resource "kubernetes_service" "sample-app" {
     }
     type = "LoadBalancer"
   }
+
+  depends_on = ["kubernetes_namespace.namespace"]
 }
 
 output "lb_ip" {
