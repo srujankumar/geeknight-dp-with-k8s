@@ -1,4 +1,5 @@
 resource "kubernetes_service" "sample-app" {
+  provider = "kubernetes.${terraform.workspace}_kubernetes"
   metadata {
     name = "sample-app"
     namespace = "${local.app_namespace}"

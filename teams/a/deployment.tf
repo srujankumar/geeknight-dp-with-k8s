@@ -1,4 +1,5 @@
-resource "kubernetes_replication_controller" "sample-app" {
+resource "kubernetes_deployment" "sample-app" {
+  provider = "kubernetes.${terraform.workspace}_kubernetes"
   metadata {
     name = "sample-app"
     namespace = "${local.app_namespace}"
@@ -6,33 +7,38 @@ resource "kubernetes_replication_controller" "sample-app" {
       app = "sample-app"
     }
   }
-
   spec {
-    replicas = 2
+    replicas = 1
+
     selector {
-      app = "sample-app"
+      match_labels {
+        app = "sample-app"
+      }
     }
     template {
-      container {
-        image = "srujankumar/sample-node-app:latest"
-        name  = "sample-node-app"
-
-        port {
-          container_port = 3000
+      metadata {
+        labels {
+          app = "sample-app"
         }
-
-        env {
-          name = "ENV_PASSWORD"
-          value_from {
-            secret_key_ref {
-              name = "password"
-              key = "value"
+      }
+      spec {
+        container {
+          image = "srujankumar/sample-node-app:latest"
+          name  = "sample-app"
+          port = {
+            container_port = 3000
+          }
+          env {
+            name = "ENV_PASSWORD"
+            value_from {
+              secret_key_ref {
+                name = "password"
+                key = "value"
+              }
             }
           }
         }
-
       }
     }
   }
-  depends_on = ["kubernetes_namespace.namespace"]
 }
