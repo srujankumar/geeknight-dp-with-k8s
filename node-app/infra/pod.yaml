@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-pod
+spec:
+  containers:
+  - name: node-container
+    image: node_app_roc:4.0
+    env:
+    - name: ENV_USERNAME
+      value: "John"
+    - name: ENV_PASSWORD
+      value: "super secret"
+    - name: ENV_SERVICE_URL
+      value: "http://service.com"
